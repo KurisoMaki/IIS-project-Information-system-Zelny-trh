@@ -1,0 +1,240 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <title>Projekt IIS</title>
+    <style type="text/css">
+    	table { border-collapse: collapse; }
+    	td, th { border: 1px solid black; padding: 0.3em 0.5em; text-align: left; }
+    	dt { font-weight: bold; margin-top: 0.5em; }
+    </style>
+</head>
+<body>
+
+<!-- Zkontrolujte prosím nastavení kódování v hlavičce dokumentu 
+     podle použitého editoru -->
+
+<h1>Zelný trh</h1> <!-- Nahradte názvem svého zadání -->
+
+<dl>
+	<dt>Autoři</dt>
+	<dd>První jméno <!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
+	    <a href="mailto:xkozub09@stud.fit.vutbr.cz">xkozub09@stud.fit.vutbr.cz</a> -
+		ER, model relační databáze, repo, sql skript, kontrolery, filtrování,
+        testování, opravy a spolupráce s ostatními...
+	</dd>
+	<dd>Druhé jméno <!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
+	    <a href="mailto:xkrajc26@stud.fit.vutbr.cz"> xkrajc26@stud.fit.vutbr.cz</a> - 
+		instalace, modely, kontrolery, blady, úvodní strana, role, autorizace, sprovznní serveru,
+        testování, opravy a spolupráce s ostatními...
+	</dd>
+  <dd>Třetí jméno <!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
+	    <a href="mailto:xkucer0v@stud.fit.vutbr.cz">xkucer0v@stud.fit.vutbr.cz</a> - 
+		Use-Case diagram, modely, kontrolery, views, přidávání záznamů, úprava db,
+        testování, opravy a spolupráce s ostatními...
+	</dd>
+	<dt>URL aplikace</dt>
+	<dd><a href="http://www.stud.fit.vutbr.cz/~xkrajc26/IIS">http://www.stud.fit.vutbr.cz/~xkrajc26/IIS</a></dd>
+	<!-- <dd>(pokud má aplikace více vstupních stránek, napište obdobně další URL)</dd> -->
+</dl>
+
+<h2>Uživatelé systému pro testování</h2>
+<!-- <p>Uveďte prosím existující zástupce <strong>všech rolí uživatelů</strong>.</p> -->
+<table>
+<tr><th>Login</th><th>Heslo</th><th>Role</th></tr>
+<tr><td>adminZT@example.com</td><td>qwer1234</td><td>Admin</td></tr>
+<tr><td>jantichy@gmail.com</td><td>qwer1234</td><td>Moderátor</td></tr>
+<tr><td>jan33@example.com</td><td>qwer1234</td><td>Farmář</td></tr>
+<tr><td>johndoe@example.com</td><td>qwer1234</td><td>Farmář</td></tr>
+</table>
+
+<!-- <p>(Diagram případů užití není nutné vkládat, pokud IS implementuje role a případy užití definované zadáním.)</p> -->
+
+<h3>Diagram případů užití</h3>
+<img src="docs/USE-CASE.png" alt="Diagram Use-Case" />
+
+<h3>Video</h3>
+
+<a href="https://drive.google.com/file/d/1aBRVjwkPMioyHfQJT_BvDBnljmrrnnfL/view?usp=drive_link" target="_blank">Klikněte zde pro přehrání videa</a>
+
+<h2>Implementace</h2>
+<p>Projekt je implementován pomocí Laravel frameworku a zahrnuje aplikační vrstvu (PHP), databázovou vrstvu (SQL) a prezentační vrstvu (Blade šablony v HTML). Následuje stručný popis implementace jednotlivých klíčových use-casů a jejich propojení s částmi projektu.</p>
+
+<h3>Use-case scénáře a jejich implementace:</h3>
+
+<h4>1. Uživatelé:</h4>
+<ul>
+    <li><strong>Model:</strong> User, Uzivatel (databázová tabulka <code>Uzivatel</code>)</li>
+    <li><strong>Kontroler:</strong> UzivatelController, ProfileController, Auth::Controllery</li>
+    <li><strong>Funkce:</strong> 
+        <code>index()</code>, 
+        <code>create()</code>, 
+        <code>store()</code>,
+        <code>validate()</code>,
+        <code>show()</code>,
+        
+        <code>update()</code>,
+        <code>destroy()</code>
+    </li>
+    <li><strong>View:</strong>
+        <ul>
+            <li><code>uzivatele/index.blade.php</code> - zobrazení seznamu uživatelů.</li>
+            <li><code>uzivatele/create.blade.php</code> - vytvoření nového uživatele.</li>
+            <li><code>uzivatele/edit.blade.php</code> - úprava konkrétního záznamu uživatele.</li>
+            <li><code>uzivatele/manage.blade.php</code> - správa všech uživatelů.</li>
+            <li><code>uzivatele/show.blade.php</code> - zobrazení konkrétního záznamu uživatele.</li>
+        </ul>
+    </li>
+    <li><strong>Role a autorizace:</strong> Jsou řešeny v rámci Auth kontrolerů. V ostatních kontrolerech je <bolt>pozměněna funkcionalita pro jednotlivé role.</bolt></li>
+</ul>
+
+<h4>2. Moderátor spravuje kategorie plodin a atributů:</h4>
+<ul>
+    <li><strong>Model:</strong> Kategorie, Atribut (databázové tabulky <code>Kategorie, Atribut</code>)</li>
+    <li><strong>Kontroler:</strong> UzivatelController</li>
+    <li><strong>Funkce:</strong> 
+        <code>index()</code>, 
+        <code>create()</code>, 
+        <code>store()</code>,
+        <code>show()</code>,    
+        <code>update()</code>,
+        <code>destroy()</code>
+    </li>
+    <li><strong>View:</strong>
+        <ul>
+            <li><code>kategorie/index.blade.php</code> - zobrazení seznamu kategorií.</li>
+            <li><code>kategorie/create.blade.php</code> - vytvoření nové kategorie.</li>
+            <li><code>kategorie/edit.blade.php</code> - úprava konkrétního záznamu kategorie.</li>
+            <li><code>kategorie/manage.blade.php</code> - správa všech kategorií.</li>
+            <li><code>kategorie/show.blade.php</code> - zobrazení konkrétního záznamu kategorie.</li>
+            <li>stejné views pro atributy</li>
+        </ul>
+    </li>
+</ul>
+
+<h4>3. Registrovaný uživatel spravuje nabídky a samosběry:</h4>
+<ul>
+    <li><strong>Model:</strong> Nabidka, Relace_nabidka_atribut</li>
+    <li><strong>Kontroler:</strong> NabidkaController</li>
+    <li><strong>Funkce:</strong> 
+        <code>index()</code>, 
+        <code>create()</code>, 
+        <code>store()</code>,
+        <code>show()</code>,
+        <code>update()</code>,
+        <code>destroy()</code>
+    </li>
+    <li><strong>View:</strong>
+        <ul>
+            <li><code>nabidky/index.blade.php</code> - zobrazení seznamu všech relevantních nabídek pro danou roli.</li>
+            <li><code>nabidky/create.blade.php</code> - vytvoření nové nabídky.</li>
+            <li><code>nabidky/edit.blade.php</code> - úprava konkrétního záznamu nabídky.</li>
+            <li><code>nabidky/manage.blade.php</code> - správa všech relevantních nabídek.</li>
+            <li><code>nabidky/show.blade.php</code> - zobrazení konkrétního záznamu nabídky.</li>
+        </ul>
+    </li>
+</ul>
+
+<h4>4. Zákazník provádí objednávky:</h4>
+<ul>
+    <li><strong>Model:</strong> Objednavka, Relace_objednavka_nabidka</li>
+    <li><strong>Kontroler:</strong> ObjednavkaController</li>
+    <li><strong>Funkce:</strong> 
+        <code>index()</code>, 
+        <code>create()</code>, 
+        <code>store()</code>,
+        <code>show()</code>,
+        <code>update()</code>,
+        <code>destroy()</code>,
+        <code>updateForFarmer()</code>
+    </li>
+    <li><strong>View:</strong>
+        <ul>
+            <li><code>objednavky/index.blade.php</code> - zobrazení seznamu relevantních objednávek.</li>
+            <li><code>objednavky/create.blade.php</code> - vytvoření nové objednávky.</li>
+            <li><code>objednavky/edit.blade.php</code> - úprava konkrétního záznamu objednávky.</li>
+            <li><code>objednavky/manage.blade.php</code> - správa všech objednávek.</li>
+            <li><code>objednavky/show.blade.php</code> - zobrazení konkrétního záznamu objednávky.</li>
+
+        </ul>
+    </li>
+</ul>
+
+<h4>6. Uživatel hodnotí produkty:</h4>
+<ul>
+    <li><strong>Model:</strong> Hodnoceni</li>
+    <li><strong>Kontroler:</strong> HodnoceniController</li>
+    <li><strong>Funkce:</strong> 
+        <code>index()</code>, 
+        <code>create()</code>, 
+        <code>store()</code>,
+        <code>show()</code>,
+        <code>update()</code>,
+        <code>destroy()</code>,
+    </li>
+    <li><strong>View:</strong>
+        <ul>
+            <li><code>objednavky/index.blade.php</code> - Seznam hodnocení.</li>
+            <li><code>objednavky/create.blade.php</code> - vytvoření nového hodnocení.</li>
+            <li><code>objednavky/edit.blade.php</code> - úpravování hodnocení.</li>
+            <li><code>objednavky/manage.blade.php</code> - správa všech relevantních hodnocení, pro daného uživatele.</li>
+            <li><code>objednavky/show.blade.php</code> - zobrazení konkrétního záznamu hodnocení.</li>
+        </ul>
+    </li>
+</ul>
+
+<h3>Struktura databáze:</h3>
+<ul>
+    <li><strong>Databázový skript:</strong> <code>DBserver.sql</code> obsahuje definice tabulek a relací.</li>
+    <li><strong>Klíčové tabulky:</strong> Uzivatel, Kategorie, Nabidka, Objednavka, Hodnoceni.</li>
+</ul>
+
+<h3>Poznámky:</h3>
+<ul>
+    <li>Výjimečně je použit <strong>JavaScript</strong> pro interaktivní prvky na frontendu (např. filtry nebo potvrzení akcí).</li>
+    <li>Cesty a data mezi frontendem a backendem zajišťuje Laravel routing s podporou RESTful API.</li>
+</ul>
+
+<h3>Databáze</h3>
+
+<img src="docs/RDBmodel.png" alt="Diagram Relation-Database" />
+
+<h2>Instalace</h2>
+
+<strong>Postup instalace na server:</strong>
+<ul>
+    <li>Prvním krokem byl import databáze pomocí rozhraní <code>phpmyadmin</code> na školním serveru.</li>
+    <li>Následně byl lokálně vygenerován aplikační klíč a upraven soubor <code>.env</code> pro nasazení projektu, 
+    společně s nastavením pro databázi.</li>
+    <li>Instalace na školní server proběhla pomocí zkomprimování repozitáře projektu bez složek <code>node_modules</code>, <code>vendor</code> a <code>tests</code>, 
+    a následného nahrání souboru na server.</li>
+    <li>Po rozbalení složky s projektem byl přesunut adresář <code>public</code> na požadované umístění 
+    a byl spuštěn příkaz <code>php83 $(which composer) install --optimize-autoloader --no-dev</code>.</li>
+    <li>Po úspěšné instalaci potřebných modulů byl projekt připraven a plně funkční.</li>
+</ul>
+
+
+<strong>Softwarové požadavky (verze PHP apod.):</strong>
+<ul>
+    <li>Projekt vyžaduje pro inicializaci přítomnost PHP verze alespoň 8.2 a nainstalovaný Composer.</li>
+    <li>Pro inicializaci databáze doporučuji použít <code>phpmyadmin</code>.</li>
+    <li>Vše ostatní se nainstaluje během inicializace.</li>
+</ul>
+
+
+<strong>Jak rozbalit, konfigurovat, inicializovat databázi, ... (lokálně):</strong>
+<ul>
+    <li>Rozbalení ZIP souboru.</li>
+    <li>Import databáze pomocí <code>phpmyadmin</code>.</li>
+    <li>Úprava souboru <code>.env</code> pro připojení k databázi.</li>
+    <li>Příkazem <code>php composer install</code> nainstalovat potřebné moduly.</li>
+    <li>Spustit server pomocí <code>php artisan serve</code> na localhostu.</li>
+</ul>
+
+
+<h2>Známé problémy</h2>
+<p>Nevíme o žádném známém problému.</p>
+
+</body>
+</html>
